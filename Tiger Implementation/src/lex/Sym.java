@@ -1,6 +1,6 @@
-package Parse;
+package lex;
 
-public class sym {
+public class Sym {
 	/* terminals */
 	  static final int FUNCTION = 42;
 	  static final int EOF = 0;
@@ -27,7 +27,7 @@ public class sym {
 	  static final int IN = 37;
 	  static final int END = 38;
 	  static final int ASSIGN = 27;
-//	  static final int STRING = 3;
+	  static final int STRING = 3;
 	  static final int DOT = 14;
 	  static final int LPAREN = 8;
 	  static final int RPAREN = 9;

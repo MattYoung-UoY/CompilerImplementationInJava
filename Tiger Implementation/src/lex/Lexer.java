@@ -1,4 +1,4 @@
-package Parse;
+package lex;
 
 import java_cup.runtime.Symbol;
 

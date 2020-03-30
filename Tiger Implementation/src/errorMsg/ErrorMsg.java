@@ -1,4 +1,4 @@
-package ErrorMsg;
+package errorMsg;
 
 public class ErrorMsg {
 	
@@ -25,14 +25,14 @@ public class ErrorMsg {
 
 		while (p != null) {
 			if (p.head < pos) {
-				sayPos = ":" + String.valueOf(n) + "." + String.valueOf(pos - p.head);
+				sayPos = ":" + String.valueOf(n) + "." + String.valueOf(pos - p.head - 1);
 				break;
 			}
 			p = p.tail;
 			n--;
 		}
 
-		System.out.println(filename + ":" + sayPos + ": " + msg);
+		System.out.println(filename + sayPos + ": " + msg);
 	}
 }
 
