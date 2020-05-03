@@ -1,6 +1,7 @@
 package lex;
 
 import java_cup.runtime.Symbol;
+import java_cup.runtime.Scanner;
 import errorMsg.ErrorMsg;
 import java.io.BufferedReader;
 
@@ -10,9 +11,10 @@ import java.io.BufferedReader;
 %unicode
 %line
 %column
+%cup
 %char
-%implements Lexer
-%function nextToken
+%implements Scanner
+%function next_token
 %type Symbol
 
 %char
@@ -74,4 +76,4 @@ Identifier = [a-z][a-zA-Z0-9_]*
 "//" {return tok(Sym.DIV, null);}
 {Identifier} {return tok(Sym.ID, yytext());}
 {Num} {return tok(Sym.INT, yytext());}
-[^] {err("Illegal Character");}
+[^] {return tok(Sym.error, null);}

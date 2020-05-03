@@ -5,42 +5,53 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import errorMsg.ErrorMsg;
+import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
+import parser.Parser;
 
 public class Main {
 
 	public static void main(String argv[]) throws IOException {
 		String filename = argv[0];
+		
+		lex(filename);
+		
+		parse(filename);
+		
+	}
+	
+	private static void parse(String filename) throws IOException{
 		ErrorMsg errorMsg = new ErrorMsg(filename);
 		BufferedReader inp = new BufferedReader(new FileReader(filename));
-		Lexer lexer = new Yylex(inp, errorMsg);
+		
+		Parser parser = new Parser(new Yylex(inp, errorMsg));
+		try {
+			System.out.println(parser.debug_parse());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		inp.close();
+	}
+	
+	private static void lex(String filename) throws IOException{
+		ErrorMsg errorMsg = new ErrorMsg(filename);
+		BufferedReader inp = new BufferedReader(new FileReader(filename));
+		Scanner lexer = new Yylex(inp, errorMsg);
 		Symbol tok;
 
-		do {
-			tok = lexer.nextToken();
-			System.out.print(symnames[tok.sym] + " " + tok.left + ":" + tok.right);
-			if(tok.value != null) System.out.print(" " + tok.value);
-			System.out.println();
-		} while (tok.sym != Sym.EOF);
+		try {
+			do {
+				tok = lexer.next_token();
+				System.out.print(Sym.terminalNames[tok.sym] + " " + tok.left + ":" + tok.right);
+				if (tok.value != null)
+					System.out.print(" " + tok.value);
+				System.out.println();
+			} while (tok.sym != Sym.EOF);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		inp.close();
 	}
-
-	static String symnames[] = new String[100];
-	static {
-
-		symnames[Sym.EOF] = "EOF";
-		symnames[Sym.PRINT] = "PRINT";
-		symnames[Sym.INT] = "INT";
-		symnames[Sym.COMMA] = "COMMA";
-		symnames[Sym.ASSIGN] = "ASSIGN";
-		symnames[Sym.LPAREN] = "LPAREN";
-		symnames[Sym.RPAREN] = "RPAREN";
-		symnames[Sym.SEMICOLON] = "SEMICOLON";
-		symnames[Sym.ID] = "ID";
-		symnames[Sym.PLUS] = "PLUS";
-		symnames[Sym.SUB] = "SUB";
-		symnames[Sym.MULT] = "MULT";
-		symnames[Sym.DIV] = "DIV";
-	}
+	
 }

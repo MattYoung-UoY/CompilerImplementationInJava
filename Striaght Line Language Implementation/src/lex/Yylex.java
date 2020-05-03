@@ -4,14 +4,15 @@
 
 package lex;
 
-import java_cup.runtime.Symbol;
-import errorMsg.ErrorMsg;
 import java.io.BufferedReader;
+
+import errorMsg.ErrorMsg;
+import java_cup.runtime.Symbol;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-class Yylex implements Lexer {
+public class Yylex implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -284,7 +285,6 @@ class Yylex implements Lexer {
   private boolean zzAtBOL = true;
 
   /** Whether the user-EOF-code has already been executed. */
-  @SuppressWarnings("unused")
   private boolean zzEOFDone;
 
   /* user code: */
@@ -325,7 +325,7 @@ int strLitCol = 0;
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  Yylex(java.io.Reader in) {
+  public Yylex(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -563,6 +563,18 @@ int strLitCol = 0;
   }
 
 
+  /**
+   * Contains user EOF-code, which will be executed exactly once,
+   * when the end of file is reached
+   */
+  private void zzDoEOF() throws java.io.IOException {
+    if (!zzEOFDone) {
+      zzEOFDone = true;
+    
+  yyclose();    }
+  }
+
+
 
 
   /**
@@ -572,7 +584,7 @@ int strLitCol = 0;
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  public Symbol nextToken() throws java.io.IOException {
+  @Override  public Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -710,13 +722,14 @@ int strLitCol = 0;
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
+            zzDoEOF();
           { 	 return tok(Sym.EOF, null);
  }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { err("Illegal Character");
+            { return tok(Sym.error, null);
             }
             // fall through
           case 16: break;

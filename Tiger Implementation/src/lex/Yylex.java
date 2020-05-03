@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
-class Yylex implements Lexer {
+public class Yylex implements Lexer {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -372,7 +372,7 @@ private Symbol tok(int kind, int col, Object value){
 
 private ErrorMsg errorMsg;
 
-Yylex(BufferedReader s, ErrorMsg e) {
+public Yylex(BufferedReader s, ErrorMsg e) {
   this(s);
   errorMsg=e;
 }
