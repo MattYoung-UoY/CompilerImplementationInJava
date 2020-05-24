@@ -21,6 +21,8 @@ public class Sym {
   public static final int PRINT = 2;
   public static final int RPAREN = 6;
   public static final int LPAREN = 5;
+  public static final int EXPSEQ = 14;
+  public static final int STM = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -35,7 +37,9 @@ public class Sym {
   "MULT",
   "DIV",
   "ASSIGN",
-  "SEMICOLON"
+  "SEMICOLON",
+  "EXPSEQ",
+  "STM"
   };
 }
 

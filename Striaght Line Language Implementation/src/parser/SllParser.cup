@@ -1,32 +1,39 @@
+package parser;
+
+import lex.Sym;
+import lex.Main;
+
 terminal PRINT, INT, ID, LPAREN, RPAREN, COMMA, PLUS, SUB, MULT, DIV, ASSIGN, SEMICOLON;
 
-non terminal prog, stmList, stm, exp, exp2, exp3, exp4, exp5, expList;
+non terminal prog, stmList, stm, exp, exp2, exp3, exp4, exp5, expList, assignID;
 
 start with prog;
 
 prog ::= stmList;
 
-stmList ::= stm SEMICOLON stmList
-	|	stm;
+stmList ::= stm SEMICOLON stmList {:Main.generator.addNode(Sym.STM, null, 2);:}
+	|	stm SEMICOLON;
 
-stm ::= ID ASSIGN exp
-	|	PRINT LPAREN expList RPAREN;
+stm ::= assignID ASSIGN exp {:Main.generator.addNode(Sym.ASSIGN, null, 2);:}
+	|	PRINT LPAREN expList RPAREN {:Main.generator.addNode(Sym.PRINT, null, Main.generator.getCounter());:};
 
-exp ::= exp SUB exp2
-	|	exp2
-	|	LPAREN stm COMMA exp RPAREN;
+assignID ::= ID:id {:Main.generator.stackSymbol(Sym.ID, id);:};
 
-exp2 ::= exp2 PLUS exp3
-	|	exp3;
-
-exp3 ::= exp3 DIV exp4
+exp3 ::= exp3 SUB exp4 {:Main.generator.addNode(Sym.SUB, null, 2);:}
 	|	exp4;
 
-exp4 ::= exp4 MULT exp5
+exp2 ::= exp2 PLUS exp3 {:Main.generator.addNode(Sym.PLUS, null, 2);:}
+	|	exp3;
+
+exp4 ::= exp4 MULT exp5 {:Main.generator.addNode(Sym.MULT, null, 2);:}
 	|	exp5;
+	
+exp ::= exp DIV exp2 {:Main.generator.addNode(Sym.DIV, null, 2);:}
+	|	exp2
+	|	LPAREN stm COMMA exp RPAREN {:Main.generator.addNode(Sym.EXPSEQ, null, 2);:};
 
-exp5 ::= ID
-	|	INT;
+exp5 ::= ID:id {:Main.generator.stackSymbol(Sym.ID, id);:}
+	|	INT:num {:Main.generator.stackSymbol(Sym.INT, num);:};
 
-expList ::= exp COMMA expList
-	| exp;
+expList ::= exp COMMA expList {:Main.generator.incrementCounter();:}
+	| exp {:Main.generator.incrementCounter();:};

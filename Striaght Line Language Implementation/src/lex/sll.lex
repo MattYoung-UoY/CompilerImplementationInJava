@@ -1,7 +1,6 @@
 package lex;
 
 import java_cup.runtime.Symbol;
-import java_cup.runtime.Scanner;
 import errorMsg.ErrorMsg;
 import java.io.BufferedReader;
 
@@ -13,7 +12,6 @@ import java.io.BufferedReader;
 %column
 %cup
 %char
-%implements Scanner
 %function next_token
 %type Symbol
 
@@ -73,7 +71,7 @@ Identifier = [a-z][a-zA-Z0-9_]*
 "," {return tok(Sym.COMMA, null);}
 "*" {return tok(Sym.MULT, null);}
 "-" {return tok(Sym.SUB, null);}
-"//" {return tok(Sym.DIV, null);}
+"/" {return tok(Sym.DIV, null);}
 {Identifier} {return tok(Sym.ID, yytext());}
 {Num} {return tok(Sym.INT, yytext());}
 [^] {return tok(Sym.error, null);}

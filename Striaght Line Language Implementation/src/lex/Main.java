@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import absyn.AbsynGen;
 import errorMsg.ErrorMsg;
 import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
@@ -11,12 +12,18 @@ import parser.Parser;
 
 public class Main {
 
+	public static AbsynGen generator;
+	
 	public static void main(String argv[]) throws IOException {
 		String filename = argv[0];
 		
-		lex(filename);
+		generator = new AbsynGen();
+		
+		//lex(filename);
 		
 		parse(filename);
+		
+		generator.printAbsyn();
 		
 	}
 	
@@ -26,7 +33,7 @@ public class Main {
 		
 		Parser parser = new Parser(new Yylex(inp, errorMsg));
 		try {
-			System.out.println(parser.debug_parse());
+			System.out.println(parser.parse());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

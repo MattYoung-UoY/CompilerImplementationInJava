@@ -4,9 +4,10 @@
 
 package lex;
 
-import java.io.BufferedReader;
-import errorMsg.ErrorMsg;
 import java_cup.runtime.Symbol;
+import java_cup.runtime.Scanner;
+import errorMsg.ErrorMsg;
+import java.io.BufferedReader;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
