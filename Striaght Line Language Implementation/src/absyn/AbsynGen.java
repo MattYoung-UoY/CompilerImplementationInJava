@@ -46,7 +46,6 @@ public class AbsynGen {
 	
 	public int getCounter() {
 		int res = expListCounter;
-		System.out.println(res);
 		expListCounter = 0;
 		return res;
 	}

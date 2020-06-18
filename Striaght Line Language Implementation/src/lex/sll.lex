@@ -12,10 +12,6 @@ import java.io.BufferedReader;
 %column
 %cup
 %char
-%function next_token
-%type Symbol
-
-%char
 
 %eofval{
 	 return tok(Sym.EOF, null);
@@ -26,20 +22,12 @@ private void newline() {
   errorMsg.newline(yychar);
 }
 
-private void err(long pos, String s) {
-  errorMsg.error(pos,s);
-}
-
 private void err(String s) {
-  err(yychar,s);
+  errorMsg.error(yychar,s);
 }
 
 private Symbol tok(int kind, Object value) {
     return new Symbol(kind, yyline, yycolumn, value);
-}
-
-private Symbol tok(int kind, int col, Object value){
-	return new Symbol(kind, yyline, col, value);
 }
 
 private ErrorMsg errorMsg;

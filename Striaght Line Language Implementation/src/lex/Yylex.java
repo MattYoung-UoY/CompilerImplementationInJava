@@ -4,9 +4,9 @@
 
 package lex;
 
-import java.io.BufferedReader;
-import errorMsg.ErrorMsg;
 import java_cup.runtime.Symbol;
+import errorMsg.ErrorMsg;
+import java.io.BufferedReader;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -291,20 +291,12 @@ private void newline() {
   errorMsg.newline(yychar);
 }
 
-private void err(long pos, String s) {
-  errorMsg.error(pos,s);
-}
-
 private void err(String s) {
-  err(yychar,s);
+  errorMsg.error(yychar,s);
 }
 
 private Symbol tok(int kind, Object value) {
     return new Symbol(kind, yyline, yycolumn, value);
-}
-
-private Symbol tok(int kind, int col, Object value){
-	return new Symbol(kind, yyline, col, value);
 }
 
 private ErrorMsg errorMsg;
@@ -583,7 +575,7 @@ int strLitCol = 0;
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  @Override  public Symbol next_token() throws java.io.IOException {
+  @Override  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
