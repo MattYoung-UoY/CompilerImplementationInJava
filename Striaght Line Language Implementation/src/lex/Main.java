@@ -23,7 +23,7 @@ public class Main {
 		
 		parse(filename);
 		
-		generator.printAbsyn();
+		System.out.println(generator.getAbsynTree());
 		
 	}
 	
@@ -33,7 +33,7 @@ public class Main {
 		
 		Parser parser = new Parser(new Yylex(inp, errorMsg));
 		try {
-			System.out.println(parser.parse());
+			parser.parse();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

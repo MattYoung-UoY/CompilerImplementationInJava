@@ -32,12 +32,12 @@ public class AbsynGen {
 		else genStack.push(new Node(null, children));
 	}
 	
-	public void printAbsyn() {
-		try {
-			System.out.println(genStack.peek());
-		}catch(EmptyStackException e){
-			System.out.println("Empty Program");
-		}
+	public String getAbsyn() {
+		return genStack.peek().toString();
+	}
+	
+	public Node getAbsynTree() {
+		return genStack.peek();
 	}
 	
 	public void incrementCounter() {
