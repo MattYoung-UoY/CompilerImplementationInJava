@@ -47,4 +47,23 @@ public class Sym {
 	  static final int LET = 36;
 	  static final int THEN = 30;
 	  static final int EQ = 19;
+	  
+//	  public static final String[] terminalNames = new String[] {
+//			  "EOF",
+//			  "error",
+//			  "PRINT",
+//			  "INT",
+//			  "ID",
+//			  "LPAREN",
+//			  "RPAREN",
+//			  "COMMA",
+//			  "PLUS",
+//			  "SUB",
+//			  "MULT",
+//			  "DIV",
+//			  "ASSIGN",
+//			  "SEMICOLON",
+//			  "EXPSEQ",
+//			  "STM"
+//			  };
 }

@@ -2,7 +2,6 @@ package absyn;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 import java_cup.runtime.Symbol;

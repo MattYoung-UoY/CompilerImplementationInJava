@@ -11,3 +11,6 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+*.jar
+*.bat
+Yylex.java~
